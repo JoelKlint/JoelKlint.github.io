@@ -58,7 +58,7 @@ function render_one_image(image_object) {
   // date
   var date_tag = document.createElement("div")
   var local_time = moment.unix(image_object.created_time)
-  date_tag.style = 'font-size: 30px;'
+  date_tag.style = 'font-size: 30px; padding-left: 10px; padding-right: 10px;'
   date_tag.innerText = local_time.format("dddd D MMMM")
   div_tag.appendChild(date_tag)
 
@@ -169,6 +169,7 @@ function render_one_image(image_object) {
      * Only main image
      */
     // clickable link
+    var click_link = image_object.link
     var a_tag = document.createElement("a");
     a_tag.setAttribute('href', click_link)
     div_tag.appendChild(a_tag)
@@ -181,11 +182,26 @@ function render_one_image(image_object) {
     a_tag.appendChild(img_tag)
   }
 
-
   // caption
   var caption_tag = document.createElement("div")
   caption_tag.innerText = image_object.caption.text
+  caption_tag.style = 'padding-left: 10px; padding-right: 10px;'
   div_tag.appendChild(caption_tag)
+
+  // Figure out if there is video
+  var has_video = false
+  if(image_object.carousel_media) {
+    has_video = image_object.carousel_media.some(i => i.type === 'video')
+  }
+  else {
+    has_video = image_object.type = 'video'
+  }
+  if(has_video) {
+    var has_video_tag = document.createElement('div')
+    has_video_tag.innerText = 'Innehåller video, klicka på bilden för att se'
+    has_video_tag.style = 'padding-left: 10px; padding-right: 10px; font-style: italic; margin-top: 10px;'
+    div_tag.appendChild(has_video_tag)
+  }
 
   // Add everything to DOM
   var baseDiv = document.getElementById("instafeed")
@@ -234,30 +250,30 @@ function set_times() {
 function set_doing_text() {
   // Set up all activities
   var activities_for_hour = {
-    '0': [],
-    '1': [],
-    '2': [],
-    '3': [],
-    '4': [],
-    '5': [],
-    '6': [],
-    '7': [],
-    '8': [],
-    '9': [],
-    '10': [],
-    '11': [],
-    '12': [],
-    '13': [],
-    '14': [],
-    '15': [],
-    '16': [],
-    '17': [],
-    '18': [],
-    '19': ['äter', 'vilar'],
-    '20': [],
-    '21': [],
-    '22': [],
-    '23': []
+    '0': ['sover vi'],
+    '1': ['sover vi'],
+    '2': ['sover vi'],
+    '3': ['sover vi'],
+    '4': ['sover vi'],
+    '5': ['sover vi'],
+    '6': ['sover vi'],
+    '7': ['sover vi'],
+    '8': ['sover vi'],
+    '9': ['äter vi frukost', 'planerar vi dagen'],
+    '10': ['äter vi frukost', 'planerar vi dagen'],
+    '11': ['äter vi frukost', 'planerar vi dagen', 'är vi på utflykt'],
+    '12': ['är vi på utflykt', 'badar vi'],
+    '13': ['äter vi lunch'],
+    '14': ['äter vi lunch'],
+    '15': ['är vi på utflykt', 'badar vi', 'upptäcker vi något'],
+    '16': ['är vi på utflykt', 'badar vi', 'upptäcker vi något'],
+    '17': ['är vi på utflykt', 'badar vi', 'upptäcker vi något'],
+    '18': ['upptäcker vi något', 'kollar vi på solgången'],
+    '19': ['äter vi middag', 'upptäcker vi något'],
+    '20': ['äter vi middag', 'upptäcker vi något'],
+    '21': ['spelar vi spel', 'dricker vi öl', 'hänger vi med andra backpackers'],
+    '22': ['spelar vi spel', 'dricker vi öl', 'hänger vi med andra backpackers'],
+    '23': ['spelar vi spel', 'dricker vi öl', 'hänger vi med andra backpackers'],
   }
 
   // Pick the ones relevant for this hour
@@ -266,7 +282,7 @@ function set_doing_text() {
   // Get one activity
   var activity = activities[Math.floor(Math.random() * activities.length)]
 
-  var text = "Just nu " + activity + ' vi kanske'
+  var text = "Just nu " + activity + ' förmodligen'
   document.getElementById("doing_now").innerText = text
 }
 
