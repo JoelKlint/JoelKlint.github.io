@@ -1,5 +1,6 @@
 // TODO: Load in locale
 moment.locale('sv')
+var TRAVEL_TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 // Instagram data holder
 var INSTAGRAM_DATA = []
@@ -44,6 +45,7 @@ var feed_2 = new Instafeed({
 });
 
 function render_one_image(image_object) {
+  console.log(image_object)
   // Container
   var container_tag = document.createElement("div")
   container_tag.className = 'row justify-content-md-center'
@@ -60,18 +62,125 @@ function render_one_image(image_object) {
   date_tag.innerText = local_time.format("dddd D MMMM")
   div_tag.appendChild(date_tag)
 
-  // clickable link
-  var a_tag = document.createElement("a");
-  a_tag.setAttribute('href', image_object.link)
-  div_tag.appendChild(a_tag)
+  if (image_object.carousel_media) {
+    /**
+     * Carousel with all images
+    */
 
-  // image
-  var img_object = image_object.images.standard_resolution
-  var img_tag = document.createElement("img")
-  img_tag.setAttribute('src', img_object.url)
-  // img_tag.className = 'img-fluid'
-  img_tag.style = 'width: 100%;'
-  a_tag.appendChild(img_tag)
+    var carousel_tag = document.createElement('div')
+    carousel_tag.id = image_object.id
+    carousel_tag.className = 'carousel slide'
+    carousel_tag.setAttribute('data-ride', 'carousel')
+
+    var indicators_tag = document.createElement('ol')
+    indicators_tag.className = 'carousel-indicators'
+    carousel_tag.appendChild(indicators_tag)
+
+    var inner_tag = document.createElement('div')
+    inner_tag.className = 'carousel-inner'
+    carousel_tag.appendChild(inner_tag)
+
+    var click_link = image_object.link
+    var FIRST_IN_CAROUSEL = true
+    var CAROUSEL_INDEX = 0
+    image_object.carousel_media.map(img_object => {
+
+      /**
+       * The control
+       */
+      var li_tag = document.createElement('li')
+      li_tag.setAttribute('data-target', '#' + image_object.id)
+      li_tag.setAttribute('data-slide-to', CAROUSEL_INDEX++)
+      if (FIRST_IN_CAROUSEL) {
+        li_tag.className = 'active'
+      }
+      indicators_tag.appendChild(li_tag)
+
+
+      /**
+       * The slide
+       */
+      var item_tag = document.createElement('div')
+      item_tag.className = 'carousel-item'
+      if (FIRST_IN_CAROUSEL) {
+        item_tag.className += ' active'
+      }
+
+      var a_tag = document.createElement('a')
+      a_tag.setAttribute('href', click_link)
+      item_tag.appendChild(a_tag)
+
+      var img_url = img_object.images.standard_resolution.url
+      var img_tag = document.createElement('img')
+      img_tag.className = 'd-block w-100'
+      img_tag.setAttribute('src', img_url)
+      a_tag.appendChild(img_tag)
+
+      inner_tag.appendChild(item_tag)
+
+      FIRST_IN_CAROUSEL = false
+    })
+    /**
+     * Previous button
+     */
+    var prev_tag = document.createElement('a')
+    prev_tag.className = 'carousel-control-prev'
+    prev_tag.setAttribute('href', '#' + image_object.id)
+    prev_tag.setAttribute('role', 'button')
+    prev_tag.setAttribute('data-slide', 'prev')
+
+    var prev_child_tag = document.createElement('span')
+    prev_child_tag.className = 'carousel-control-prev-icon'
+    prev_child_tag.setAttribute('aria-hidden', 'true')
+    prev_tag.appendChild(prev_child_tag)
+
+    prev_child_tag = document.createElement('span')
+    prev_child_tag.className = 'sr-only'
+    prev_child_tag.innerText = 'Previous'
+    prev_tag.appendChild(prev_child_tag)
+
+    carousel_tag.appendChild(prev_tag)
+
+    /**
+     * Next button
+     */
+    var next_tag = document.createElement('a')
+    next_tag.className = 'carousel-control-next'
+    next_tag.setAttribute('href', '#' + image_object.id)
+    next_tag.setAttribute('role', 'button')
+    next_tag.setAttribute('data-slide', 'next')
+
+    var next_child_tag = document.createElement('span')
+    next_child_tag.className = 'carousel-control-next-icon'
+    next_child_tag.setAttribute('aria-hidden', 'true')
+    next_tag.appendChild(next_child_tag)
+
+    next_child_tag = document.createElement('span')
+    next_child_tag.className = 'sr-only'
+    next_child_tag.innerText = 'Next'
+    next_tag.appendChild(next_child_tag)
+
+    carousel_tag.appendChild(next_tag)
+
+    div_tag.appendChild(carousel_tag)
+  }
+  else {
+    /**
+     * Only main image
+     */
+    // clickable link
+    var a_tag = document.createElement("a");
+    a_tag.setAttribute('href', click_link)
+    div_tag.appendChild(a_tag)
+
+    // image
+    var img_object = image_object.images.standard_resolution
+    var img_tag = document.createElement("img")
+    img_tag.setAttribute('src', img_object.url)
+    img_tag.style = 'width: 100%;'
+    a_tag.appendChild(img_tag)
+  }
+
 
   // caption
   var caption_tag = document.createElement("div")
@@ -114,12 +223,12 @@ function set_times() {
   var current_time = moment()
 
   // Set swedish time
-  var sv_tag =  document.getElementById("swedish-time")
+  var sv_tag = document.getElementById("swedish-time")
   sv_tag.innerText = current_time.tz('Europe/Stockholm').format("dddd HH:mm")
 
   // Set travel time
   var travel_tag = document.getElementById("travel-time")
-  travel_tag.innerText = current_time.tz('Asia/Ho_Chi_Minh').format("dddd HH:mm")
+  travel_tag.innerText = current_time.tz(TRAVEL_TIME_ZONE).format("dddd HH:mm")
 }
 
 function set_doing_text() {
@@ -152,10 +261,10 @@ function set_doing_text() {
   }
 
   // Pick the ones relevant for this hour
-  var activities = activities_for_hour[moment().hour()]
+  var activities = activities_for_hour[moment().tz(TRAVEL_TIME_ZONE).hour()]
 
   // Get one activity
-  var activity = activities[Math.floor(Math.random()*activities.length)]
+  var activity = activities[Math.floor(Math.random() * activities.length)]
 
   var text = "Just nu " + activity + ' vi kanske'
   document.getElementById("doing_now").innerText = text
