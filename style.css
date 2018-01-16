@@ -10,12 +10,8 @@ body {
   font-size: 20px;
 }
 
-#insta_header {
-  font-size: 30px;
-}
-
 .insta-entry {
-  margin-top: 0px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 

@@ -185,7 +185,7 @@ function render_one_image(image_object) {
   // caption
   var caption_tag = document.createElement("div")
   caption_tag.innerText = image_object.caption.text
-  caption_tag.style = 'padding-left: 10px; padding-right: 10px;'
+  caption_tag.style = 'padding-left: 10px; padding-right: 10px; margin-top: 10px;'
   div_tag.appendChild(caption_tag)
 
   // Figure out if there is video
