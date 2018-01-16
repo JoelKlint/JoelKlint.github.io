@@ -178,7 +178,7 @@ function render_one_image(image_object) {
     var img_object = image_object.images.standard_resolution
     var img_tag = document.createElement("img")
     img_tag.setAttribute('src', img_object.url)
-    img_tag.style = 'width: 100%;'
+    img_tag.className = 'd-block w-100'
     a_tag.appendChild(img_tag)
   }
 
