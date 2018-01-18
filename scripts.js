@@ -45,7 +45,6 @@ var feed_2 = new Instafeed({
 });
 
 function render_one_image(image_object) {
-  console.log(image_object)
   // Container
   var container_tag = document.createElement("div")
   container_tag.className = 'row justify-content-md-center'
@@ -80,7 +79,6 @@ function render_one_image(image_object) {
     inner_tag.className = 'carousel-inner'
     carousel_tag.appendChild(inner_tag)
 
-    var click_link = image_object.link
     var FIRST_IN_CAROUSEL = true
     var CAROUSEL_INDEX = 0
     image_object.carousel_media.map(img_object => {
@@ -106,11 +104,23 @@ function render_one_image(image_object) {
         item_tag.className += ' active'
       }
 
+
+      var img_url = ''
+      var click_link = ''
+      if (img_object.images) { // image
+        img_url = img_object.images.standard_resolution.url
+        click_link = img_object.images.standard_resolution.url
+      }
+      else { // video
+        img_url = 'https://www.lincolncenter.org/assets/images/nav/lincoln-center-video.svg'
+        click_link = img_object.videos.standard_resolution.url
+      }
+
       var a_tag = document.createElement('a')
       a_tag.setAttribute('href', click_link)
+      a_tag.setAttribute('target', 'blank')
       item_tag.appendChild(a_tag)
 
-      var img_url = img_object.images.standard_resolution.url
       var img_tag = document.createElement('img')
       img_tag.className = 'd-block w-100'
       img_tag.setAttribute('src', img_url)
@@ -164,12 +174,21 @@ function render_one_image(image_object) {
 
     div_tag.appendChild(carousel_tag)
   }
-  else {
-    /**
-     * Only main image
-     */
+  else { // No carousel
+    var img_url = ''
+    var click_link = ''
+    if (image_object.type === 'image') { // image
+      img_url = image_object.images.standard_resolution.url
+      click_link = image_object.images.standard_resolution.url
+    }
+    else { // video
+      console.log(image_object)
+      console.log(image_object.videos.standard_resolution.url)
+      img_url = 'https://www.lincolncenter.org/assets/images/nav/lincoln-center-video.svg'
+      click_link = image_object.videos.standard_resolution.url
+    }
+
     // clickable link
-    var click_link = image_object.link
     var a_tag = document.createElement("a");
     a_tag.setAttribute('href', click_link)
     div_tag.appendChild(a_tag)
@@ -177,7 +196,8 @@ function render_one_image(image_object) {
     // image
     var img_object = image_object.images.standard_resolution
     var img_tag = document.createElement("img")
-    img_tag.setAttribute('src', img_object.url)
+    img_tag.setAttribute('src', img_url)
+    a_tag.setAttribute('target', 'blank')
     img_tag.className = 'd-block w-100'
     a_tag.appendChild(img_tag)
   }
@@ -190,13 +210,13 @@ function render_one_image(image_object) {
 
   // Figure out if there is video
   var has_video = false
-  if(image_object.carousel_media) {
+  if (image_object.carousel_media) {
     has_video = image_object.carousel_media.some(i => i.type === 'video')
   }
   else {
     has_video = image_object.type = 'video'
   }
-  if(has_video) {
+  if (has_video) {
     var has_video_tag = document.createElement('div')
     has_video_tag.innerText = 'Innehåller video, klicka på bilden för att se'
     has_video_tag.style = 'padding-left: 10px; padding-right: 10px; font-style: italic; margin-top: 10px;'
