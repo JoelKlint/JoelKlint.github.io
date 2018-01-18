@@ -208,21 +208,6 @@ function render_one_image(image_object) {
   caption_tag.style = 'padding-left: 10px; padding-right: 10px; margin-top: 10px;'
   div_tag.appendChild(caption_tag)
 
-  // Figure out if there is video
-  var has_video = false
-  if (image_object.carousel_media) {
-    has_video = image_object.carousel_media.some(i => i.type === 'video')
-  }
-  else {
-    has_video = image_object.type = 'video'
-  }
-  if (has_video) {
-    var has_video_tag = document.createElement('div')
-    has_video_tag.innerText = 'Innehåller video, klicka på bilden för att se'
-    has_video_tag.style = 'padding-left: 10px; padding-right: 10px; font-style: italic; margin-top: 10px;'
-    div_tag.appendChild(has_video_tag)
-  }
-
   // Add everything to DOM
   var baseDiv = document.getElementById("instafeed")
   baseDiv.appendChild(container_tag)
