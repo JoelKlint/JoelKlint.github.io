@@ -45,6 +45,8 @@ var feed_2 = new Instafeed({
 });
 
 function render_one_image(image_object) {
+  console.log(image_object)
+
   // Container
   var container_tag = document.createElement("div")
   container_tag.className = 'row justify-content-md-center'
@@ -57,9 +59,18 @@ function render_one_image(image_object) {
   // date
   var date_tag = document.createElement("div")
   var local_time = moment.unix(image_object.created_time)
-  date_tag.style = 'font-size: 30px; padding-left: 10px; padding-right: 10px;'
+  date_tag.className = 'image-text'
+  date_tag.style = 'font-size: 30px;'
   date_tag.innerText = local_time.format("dddd D MMMM")
   div_tag.appendChild(date_tag)
+
+  // profile
+  var profile_tag = document.createElement('div')
+  profile_tag.className = 'image-text'
+  var profile_name = image_object.user.full_name.split(' ')[0]
+  profile_tag.innerText = 'Postat av: ' + profile_name
+  div_tag.appendChild(profile_tag)
+
 
   if (image_object.carousel_media) {
     /**
@@ -122,7 +133,7 @@ function render_one_image(image_object) {
       item_tag.appendChild(a_tag)
 
       var img_tag = document.createElement('img')
-      img_tag.className = 'd-block w-100'
+      img_tag.className = 'd-block w-100 instagram-picture'
       img_tag.setAttribute('src', img_url)
       a_tag.appendChild(img_tag)
 
@@ -182,8 +193,6 @@ function render_one_image(image_object) {
       click_link = image_object.images.standard_resolution.url
     }
     else { // video
-      console.log(image_object)
-      console.log(image_object.videos.standard_resolution.url)
       img_url = 'https://www.lincolncenter.org/assets/images/nav/lincoln-center-video.svg'
       click_link = image_object.videos.standard_resolution.url
     }
@@ -198,14 +207,14 @@ function render_one_image(image_object) {
     var img_tag = document.createElement("img")
     img_tag.setAttribute('src', img_url)
     a_tag.setAttribute('target', 'blank')
-    img_tag.className = 'd-block w-100'
+    img_tag.className = 'd-block w-100 instagram-picture'
     a_tag.appendChild(img_tag)
   }
 
   // caption
   var caption_tag = document.createElement("div")
+  caption_tag.className = 'image-text'
   caption_tag.innerText = image_object.caption.text
-  caption_tag.style = 'padding-left: 10px; padding-right: 10px; margin-top: 10px;'
   div_tag.appendChild(caption_tag)
 
   // Add everything to DOM

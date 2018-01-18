@@ -15,6 +15,16 @@ body {
   margin-bottom: 20px;
 }
 
+.image-text {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.instagram-picture {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .emoji {
   font-size: 50px;
 }
