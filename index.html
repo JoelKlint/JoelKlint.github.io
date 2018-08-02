@@ -6,94 +6,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-    crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 
-  <title>JoElin i Sydostasien</title>
+  <title>JoElin</title>
 </head>
 
 <body>
-  <div class="container">
 
-    <div class="row top">
-      <div class="col">
-        <h1 class="text-center">JoElin i Sydostasien</h1>
+    <div id='img-background'>
+    <img id='joelin-img' src='./images/joelin.jpg' />
+    </div>
+
+    <div id='countdown-positioner'>
+      <div id='countdown'>
+        <div class='time' id='days'></div>
+        <div class='time' id='hours'></div>
+        <div class='time' id='minutes'></div>
+        <div class='time' id='seconds'></div>
       </div>
     </div>
 
-    <div class="row justify-content-center" id="timezones">
 
-      <div class="text-center col col-lg-4">
-        <div class="timezone_header">
-          <u>Svensk tid</u>
-        </div>
-        <div id="swedish-time">XX:XX</div>
-      </div>
-
-      <div class="text-center col col-lg-4">
-        <div class="timezone_header">
-          <u>JoElins tid</u>
-        </div>
-        <div id="travel-time">XX:XX</div>
-      </div>
-
-    </div>
-
-    <hr>
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-7 text-center">
-        <div>
-          Här kan du följa vår resa genom Sydostasien! Vi har tänkt besöka Vietnam, Kambodja, Laos och Thailand men planerar bara någon
-          dag i förväg, så vi får se hur långt vi kommer.
-        </div>
-        <br>
-        <div>
-          Vid månadsskiftet februari/mars skiljs vi åt till varsin sida världen för en utbytestermin. Elin åker till Peru och Joel
-          till Sydkorea. Sedan landar vi i Sverige igen framåt hösten.
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col text-center">
-        <i id="doing_now"></i>
-      </div>
-    </div>
-
-    <div class="row" id="instafeed">
-
-      <div class="col text-center">
-        <div class="insta-entry text-center">Kunde inte hitta några bilder, försök igen!</div>
-        <div class="emoji">:(</div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
-    crossorigin="anonymous"></script>
 
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js" integrity="sha256-ABVkpwb9K9PxubvRrHMkk6wmWcIHUE9eBxNZLXYQ84k="
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/sv.js" integrity="sha256-WmCH3L6aeRMb1qkgAFkUQmmPJBy/BFFse4FoISdNN3A="
-    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.min.js" integrity="sha256-FJZOELgwnfQRdG8KZUSWCYgucECDf4w5kfQdQSGbVpI="
     crossorigin="anonymous"></script>
 
-
-  <!-- Instagram feed widget -->
-  <script type="text/javascript" src="instafeed.min.js"></script>
   <script type="text/javascript" src="scripts.js"></script>
 </body>
 

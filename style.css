@@ -1,30 +1,118 @@
+@font-face {
+  font-family: 'Lato-Light';
+  src: url('./fonts/Lato-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Lato-Bold';
+  src: url('./fonts/Lato-Bold.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
 body {
   background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
-.col {
-  margin-top: 40px;
+#img-background {
+  background-color: whitesmoke;
+  z-index: 10;
 }
 
-.timezone_header {
+img {
+  width: 500px;
+  border-radius: 10px;
+  z-index: 20;
+  transform: scale(0.98);
+  opacity: 0;
+  transition: opacity, transform;
+  transition-timing-function: ease-out;
+  transition-duration: 1s;
+  transition-delay: 0.1s;
+}
+
+@media screen and (max-height: 480px) {
+  img {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  img {
+    width: 250px;
+  }
+}
+
+#countdown {
+  width: 0;
+  margin-left: 10px;
+  transform: translate(-20px, 0px);
+  opacity: 0;
+  transition: opacity ease-in, transform ease-out;
+  transition-duration: 0.5s;
+  transition-delay: 0.8s;
+}
+@media screen and (max-width: 480px) {
+  #countdown-positioner {
+    transform: translate(-140px, 190px)
+  }
+  #countdown {
+    transform: translate(0px, -20px);
+  }
+}
+
+.time {
+  font-family: 'Lato-Bold';
+  font-size: 25px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.time::after {
+  font-family: 'Lato-Light';
   font-size: 20px;
+  padding-bottom: 2.5px;
 }
 
-.insta-entry {
-  margin-top: 20px;
-  margin-bottom: 20px;
+@media screen and (max-width: 480px) {
+  .time {
+    font-size: 20px;
+  }
+  .time::after {
+    font-size: 15px;
+  }
 }
 
-.image-text {
-  padding-left: 10px;
-  padding-right: 10px;
+#days::after {
+  content: ' dagar'
 }
 
-.instagram-picture {
-  margin-top: 10px;
-  margin-bottom: 10px;
+#hours::after {
+  content: ' timmar'
 }
 
-.emoji {
-  font-size: 50px;
+#minutes::after {
+  content: ' minuter'
 }
+
+#seconds::after {
+  content: ' sekunder'
+}
+
